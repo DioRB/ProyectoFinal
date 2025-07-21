@@ -13,18 +13,21 @@ import java.util.Arrays;
  * @author ASUS
  */
 public class VentanaInicioGUI extends javax.swing.JFrame {
+    private String nombreUsuario;
 
-    /**
-     * Creates new form VentanaInicioGUI
-     */
     public VentanaInicioGUI() {
+    }
+    
+    
+    public VentanaInicioGUI(String nombre) {
+        this.nombreUsuario = nombre;
         initComponents();
-        setSize(900, 400);
+        setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-
- 
+        
+        jLabel1.setText("Bienvenido, " + nombre + "!");
+        
         setVisible(true);
     }
 
@@ -46,10 +49,10 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Bienvenido.");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
 
         jLabel2.setText("¿Que deseas hacer?");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, -1, -1));
 
         comprarBtn.setText("Comprar");
         comprarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -57,7 +60,7 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
                 comprarBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(comprarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 153, -1, -1));
+        getContentPane().add(comprarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
 
         calificarBtn.setText("Calificar");
         calificarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +68,7 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
                 calificarBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(calificarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 153, -1, -1));
+        getContentPane().add(calificarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 430, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -85,15 +88,16 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
             
         java.util.List<Producto> productos = Arrays.asList(vinilo1, vinilo2, cuadro);
         java.util.List<MetodoPago> metodos = Arrays.asList(pago1, pago2);
-            
-            SwingUtilities.invokeLater(() -> new FormularioCompraGUI(cliente, productos, metodos));
-        ;
+        String nombre = this.nombreUsuario;
+        SwingUtilities.invokeLater(() -> new FormularioCompraGUI(cliente, productos, metodos, nombre));
+
+        
     }//GEN-LAST:event_comprarBtnActionPerformed
 
     private void calificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calificarBtnActionPerformed
             dispose(); // Cierra la ventana de inicio
             SwingUtilities.invokeLater(() -> new FormularioCalificacionGUI().setVisible(true));
-        ;
+        
     }//GEN-LAST:event_calificarBtnActionPerformed
 
     /**

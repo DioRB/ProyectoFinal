@@ -9,7 +9,7 @@ public class Anteproyecto {
 
     public static void main(String[] args) {
     
-        SwingUtilities.invokeLater(() -> new VentanaInicioGUI());
+        SwingUtilities.invokeLater(() -> new InicioRegistro());
         
         
         /**    

@@ -19,70 +19,71 @@ import java.util.List;
 
 public class FormularioCompraGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormularioCompraGUI
-     */
     
     private Cliente cliente; // Cliente logueado
     private List<Producto> productosDisponibles;
     private List<MetodoPago> metodosPago;
+    private String nombreUsuario;
 
-    private JComboBox<Producto> comboProductos;
-    private JTextField txtCantidad;
-    private JComboBox<MetodoPago> comboMetodoPago;
-    private JTextArea resultado;
-    private JButton btnAgregarAlCarrito;
-    private JButton btnComprar;
+    public FormularioCompraGUI() {
+    }
+
     
-
-public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<MetodoPago> metodos) {
-    initComponents();
+public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<MetodoPago> metodos, String nombreUsuario) {
+    setTitle("Compras");
+    
+    initComponents(); 
+    
+    this.nombreUsuario = nombreUsuario;
     this.cliente = cliente;
     this.productosDisponibles = productos;
     this.metodosPago = metodos;
-
-    setTitle("Formulario de Compra");
-    setSize(500, 400);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLayout(new GridLayout(7, 2, 5, 5));
-
-    comboProductos = new JComboBox<>(productos.toArray(new Producto[0]));
-    txtCantidad = new JTextField();
-    comboMetodoPago = new JComboBox<>(metodos.toArray(new MetodoPago[0]));
-
-    btnAgregarAlCarrito = new JButton("Agregar al carrito");
-    btnComprar = new JButton("Comprar");
     
+    comboProductos.setModel(new DefaultComboBoxModel<Producto>());
+        for (Producto p : productos) {
+            ((DefaultComboBoxModel<Producto>) comboProductos.getModel()).addElement(p);
+        }
 
+    DefaultComboBoxModel<MetodoPago> modeloMetodo = new DefaultComboBoxModel<>();
+        for (MetodoPago m : metodosPago) {
+            modeloMetodo.addElement(m);
+        }
 
-    resultado = new JTextArea();
-    resultado.setEditable(false);
-    JScrollPane scrollPane = new JScrollPane(resultado);
+    
+    // Limpia los ítems del combo generado por NetBeans
+    comboProductos.removeAllItems();
+    for (Producto p : productosDisponibles) {
+        comboProductos.addItem(p); // Esto mostrará toString() de Producto
+    }
 
-    add(new JLabel("Producto:"));
-    add(comboProductos);
+    // Limpia y carga productos
+    comboProductos.removeAllItems();
+    for (Producto p : productosDisponibles) {
+        comboProductos.addItem(p);
+    }
 
-    add(new JLabel("Cantidad:"));
-    add(txtCantidad);
+    // Limpia y carga métodos de pago
+    comboMetodoPago.removeAllItems();
+    for (MetodoPago m : metodosPago) {
+        comboMetodoPago.addItem(m);
+    }
 
-    add(btnAgregarAlCarrito);
-    add(new JLabel(""));
+    
+    // Agregar listeners y lógica como ya lo hiciste
 
-    add(new JLabel("Método de pago:"));
-    add(comboMetodoPago);
-
-    add(btnComprar);
-    add(new JLabel(""));
-
-    add(new JLabel("Resultado:"));
-    add(scrollPane);
+    resultado.setEditable(false);   
+    
+   
 
     btnAgregarAlCarrito.addActionListener(e -> agregarProductoAlCarrito());
     btnComprar.addActionListener(e -> realizarCompra());
 
+    setSize(1000, 700);
+    setLocationRelativeTo(null);
     setVisible(true);
-}
 
+
+}
     
         private void agregarProductoAlCarrito() {
         try {
@@ -104,7 +105,6 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
         
         private void realizarCompra() {
            MetodoPago metodo = (MetodoPago) comboMetodoPago.getSelectedItem();
-
         try {
             Venta venta = cliente.realizarVenta(metodo);
             mostrarMensaje("¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal());
@@ -131,6 +131,15 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
     private void initComponents() {
 
         regresarBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        comboProductos = new javax.swing.JComboBox();
+        txtCantidad = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        comboMetodoPago = new javax.swing.JComboBox();
+        btnAgregarAlCarrito = new javax.swing.JButton();
+        btnComprar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultado = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,18 +150,70 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
                 regresarBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(regresarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(regresarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Artifakt Element Book", 1, 12)); // NOI18N
+        jLabel1.setText("Compra");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
+
+        comboProductos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProductosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
+
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 130, 30));
+
+        jLabel2.setText("Cantidad:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
+
+        comboMetodoPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(comboMetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+
+        btnAgregarAlCarrito.setText("Agregar al carrito");
+        btnAgregarAlCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAlCarritoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarAlCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 260, -1, -1));
+
+        btnComprar.setFont(new java.awt.Font("Artifakt Element Book", 1, 12)); // NOI18N
+        btnComprar.setText("Comprar");
+        getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 570, -1, -1));
+
+        resultado.setColumns(20);
+        resultado.setRows(5);
+        jScrollPane1.setViewportView(resultado);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 410, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void regresarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarBtnActionPerformed
-            // Cierra la ventana actual
     this.dispose();
-
-    // Abre la ventana de inicio
-    SwingUtilities.invokeLater(() -> new VentanaInicioGUI().setVisible(true));
+    SwingUtilities.invokeLater(() -> new VentanaInicioGUI(nombreUsuario).setVisible(true));
     }//GEN-LAST:event_regresarBtnActionPerformed
+
+    private void comboProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProductosActionPerformed
+
+    }//GEN-LAST:event_comboProductosActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
+    private void btnAgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlCarritoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarAlCarritoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,6 +251,15 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarAlCarrito;
+    private javax.swing.JButton btnComprar;
+    private javax.swing.JComboBox comboMetodoPago;
+    private javax.swing.JComboBox comboProductos;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton regresarBtn;
+    private javax.swing.JTextArea resultado;
+    private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }
