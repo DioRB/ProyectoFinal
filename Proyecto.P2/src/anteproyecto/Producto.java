@@ -66,7 +66,10 @@ public class Producto {
         this.stock = stock;
     }
 
-    
+        public String toString() {
+        return descripcion;
+    }
+        
     public boolean hayStockSuficiente(int cantidadSolicitada) {
         return this.stock >= cantidadSolicitada;
     }

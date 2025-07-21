@@ -2,10 +2,32 @@ package anteproyecto;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.SwingUtilities;
+
 public class Anteproyecto {
 
     public static void main(String[] args) {
-        /**
+    
+        SwingUtilities.invokeLater(() -> new VentanaInicioGUI());
+        
+        
+        /**    
+    Rol rolCliente = new Rol(2, "Cliente", true);
+    Cliente cliente = new Cliente(1, "Diego", "correo@correo", "contrasena", "123410", rolCliente);
+
+    Producto vinilo1 = new Producto(1, "Vinilo - OK Computer", 120.0, true, 10);
+    Producto vinilo2 = new Producto(2, "Vinilo - To Pimp a Butterfly", 150.0, true, 5);
+    Producto cuadro = new Producto(3, "Cuadro Currents", 60.0, true, 3);
+
+    MetodoPago pago1 = new MetodoPago(1, "Tarjeta débito");
+    MetodoPago pago2 = new MetodoPago(2, "Tarjeta crédito");
+
+        List<Producto> productos = Arrays.asList(vinilo1, vinilo2, cuadro);
+        List<MetodoPago> metodos = Arrays.asList(pago1, pago2);
+
+    SwingUtilities.invokeLater(() -> new FormularioCompraGUI(cliente, productos, metodos));
+        
         Artista Radiohead = new Artista(1,"Radiohead", "Banda británica de rock");
         
         Album OKComputer = new Album(1,"OK Computer",LocalDate.of(1997, 5, 28), "Su mejor album", Radiohead);  
@@ -42,8 +64,7 @@ public class Anteproyecto {
         
         System.out.println("El album " + OKComputer.getTitulo() + "tiene una puntuación promedio de: " + OKComputer.getPuntuacionPromedio());
         
-        **/
-        
+               
         Rol rolAdmin = new Rol(1, "Administrador", true);
         Rol rolCliente = new Rol(2, "Cliente", true);
         
@@ -95,7 +116,7 @@ public class Anteproyecto {
         }
         
         
-        /**
+        
         Venta venta = new Venta(1, LocalDate.now(), Metodopago1, new ArrayList<>(cliente.getCarrito().getItems()),cliente);
         
         cliente.agregarVenta(venta);
