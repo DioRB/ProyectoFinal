@@ -7,9 +7,9 @@
 package anteproyecto;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 import java.util.List;
 /**
  *
@@ -33,6 +33,49 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
     setTitle("Compras");
     
     initComponents(); 
+    
+    // Estilo de etiquetas y campos
+Font fuenteTitulo = new Font("Segoe UI", Font.BOLD, 20);
+Font fuenteTexto = new Font("Segoe UI", Font.PLAIN, 14);
+
+jLabel1.setFont(fuenteTitulo);
+jLabel1.setForeground(new Color(44, 62, 80)); // Azul oscuro suave
+
+jLabel2.setFont(fuenteTexto);
+jLabel2.setForeground(new Color(52, 73, 94)); // Gris oscuro
+
+comboProductos.setFont(fuenteTexto);
+comboMetodoPago.setFont(fuenteTexto);
+txtCantidad.setFont(fuenteTexto);
+
+resumen.setFont(new Font("Monospaced", Font.PLAIN, 13));
+resumen.setBackground(new Color(248, 249, 250)); // Gris muy claro
+resumen.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+// Botones
+btnAgregarAlCarrito.setFont(fuenteTexto);
+btnAgregarAlCarrito.setBackground(new Color(39, 174, 96)); // Verde
+btnAgregarAlCarrito.setForeground(Color.WHITE);
+btnAgregarAlCarrito.setFocusPainted(false);
+
+btnComprar.setFont(fuenteTexto);
+btnComprar.setBackground(new Color(41, 128, 185)); // Azul
+btnComprar.setForeground(Color.WHITE);
+btnComprar.setFocusPainted(false);
+
+vaciarCarro.setFont(fuenteTexto);
+vaciarCarro.setBackground(new Color(192, 57, 43)); // Rojo
+vaciarCarro.setForeground(Color.WHITE);
+vaciarCarro.setFocusPainted(false);
+
+regresarBtn.setFont(fuenteTexto);
+regresarBtn.setBackground(new Color(192, 57, 43)); // Gris
+regresarBtn.setForeground(Color.WHITE);
+regresarBtn.setFocusPainted(false);
+
+// Fondo del formulario
+getContentPane().setBackground(new Color(236, 240, 241)); // Gris claro
+
     
     this.nombreUsuario = nombreUsuario;
     this.cliente = cliente;
@@ -87,17 +130,26 @@ private void agregarProductoAlCarrito() {
         int cantidad = Integer.parseInt(txtCantidad.getText());
 
         if (!producto.hayStockSuficiente(cantidad)) {
-            JOptionPane.showMessageDialog(this, "Stock insuficiente para el carrito. Hay " + producto.getStock() + " restantes.");
+            JOptionPane.showMessageDialog(this,
+            "Stock insuficiente. Solo quedan " + producto.getStock() + " unidades disponibles.",
+            "Stock insuficiente",
+            JOptionPane.WARNING_MESSAGE);
+
             return;
         }
 
         cliente.getCarrito().agregarProducto(producto, cantidad);
-        JOptionPane.showMessageDialog(this, "Producto agregado al carrito");
+        JOptionPane.showMessageDialog(this,
+        "Producto agregado exitosamente al carrito.",
+        "Éxito",
+        JOptionPane.INFORMATION_MESSAGE);
+
 
         actualizarResumenCarrito(); 
 
     } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(this, "Cantidad inválida");
+
     }
 }
 
@@ -131,18 +183,26 @@ private void actualizarResumenCarrito() {
         MetodoPago metodo = (MetodoPago) comboMetodoPago.getSelectedItem();
         try {
             Venta venta = cliente.realizarVenta(metodo);
-            JOptionPane.showMessageDialog(this,"¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal());
+            JOptionPane.showMessageDialog(this,"¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             vaciarCarrito(); // <- aquí se vacía el carrito después de comprar
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,"Error al realizar la compra: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this,
+            "Ocurrió un error durante la compra:\n" + ex.getMessage(),
+            "Error de compra",
+            JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
     private void vaciarCarrito() {
         cliente.getCarrito().vaciar(); 
         actualizarResumenCarrito();    
-        JOptionPane.showMessageDialog(this, "Carrito vaciado con éxito.");
+        JOptionPane.showMessageDialog(this,
+        "El carrito ha sido vaciado exitosamente.",
+        "Carrito limpio",
+        JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -178,8 +238,8 @@ private void actualizarResumenCarrito() {
         getContentPane().add(regresarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Artifakt Element Book", 1, 12)); // NOI18N
-        jLabel1.setText("Compra");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
+        jLabel1.setText("¿Que deseas comprar?");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
 
         comboProductos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +254,7 @@ private void actualizarResumenCarrito() {
                 txtCantidadActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 130, 30));
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 130, 30));
 
         jLabel2.setText("Cantidad:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
@@ -218,7 +278,7 @@ private void actualizarResumenCarrito() {
         resumen.setRows(5);
         jScrollPane1.setViewportView(resumen);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 330, -1));
 
         vaciarCarro.setText("Vaciar carrito");
         vaciarCarro.addActionListener(new java.awt.event.ActionListener() {

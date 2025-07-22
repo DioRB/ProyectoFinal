@@ -4,6 +4,9 @@
  */
 package anteproyecto;
 import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 /**
  *
  * @author estudiante
@@ -13,13 +16,31 @@ public class InicioRegistro extends javax.swing.JFrame {
 
     public InicioRegistro() {
         initComponents();
+        setTitle("Auralia");
         setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        
+    btnSiguiente.setBackground(new Color(74, 144, 226)); // Azul
+    btnSiguiente.setForeground(Color.WHITE); // Texto blanco
+    btnSiguiente.setFont(new Font("Segoe UI", Font.BOLD, 16));
+    btnSiguiente.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+    
+    jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 26));
+    jLabel1.setForeground(new Color(51, 51, 51)); // Gris oscuro
 
-        setVisible(true);
+    infoNombre.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    infoNombre.setBackground(new Color(255, 255, 255));
+    infoNombre.setBorder(BorderFactory.createLineBorder(new Color(163, 194, 242), 2));
+
+    
+    setVisible(true);
     }
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,53 +55,54 @@ public class InicioRegistro extends javax.swing.JFrame {
         infoNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        inforContrasena = new javax.swing.JTextField();
+        infoTelefono = new javax.swing.JTextField();
+        infoDoc = new javax.swing.JTextField();
         infoCorreo = new javax.swing.JTextField();
         btnSiguiente = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Ingresa los datos personales");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
+        jLabel1.setText("Ingresa tu información");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, -1, -1));
 
         jLabel2.setText("Nombre:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, 20));
 
         infoNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 infoNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 103, 40));
+        getContentPane().add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 170, 40));
 
         jLabel3.setText("Numero de telefono: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, -1, -1));
 
         jLabel4.setText("Correo:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 370, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        infoTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                infoTelefonoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 103, 40));
+        getContentPane().add(infoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 170, 40));
 
-        inforContrasena.addActionListener(new java.awt.event.ActionListener() {
+        infoDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inforContrasenaActionPerformed(evt);
+                infoDocActionPerformed(evt);
             }
         });
-        getContentPane().add(inforContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 100, 40));
+        getContentPane().add(infoDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 170, 40));
 
         infoCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 infoCorreoActionPerformed(evt);
             }
         });
-        getContentPane().add(infoCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 100, 40));
+        getContentPane().add(infoCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, 170, 40));
 
         btnSiguiente.setText("Siguiente");
         btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +110,10 @@ public class InicioRegistro extends javax.swing.JFrame {
                 btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 610, -1, -1));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, -1, -1));
+
+        jLabel5.setText("Numero de documento: ");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -97,16 +122,17 @@ public class InicioRegistro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_infoNombreActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void infoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_infoTelefonoActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
     String nombre = infoNombre.getText().trim();
     String correo = infoCorreo.getText().trim();
-    String contrasena = inforContrasena.getText().trim();
+    String doc = infoDoc.getText().trim();
+    String tel = infoTelefono.getText().trim();
 
-    if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
+    if (nombre.isEmpty() || correo.isEmpty() || doc.isEmpty() || tel.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
         return;
     }
@@ -116,9 +142,9 @@ public class InicioRegistro extends javax.swing.JFrame {
     this.dispose(); // Cierra esta ventana
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
-    private void inforContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inforContrasenaActionPerformed
+    private void infoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoDocActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inforContrasenaActionPerformed
+    }//GEN-LAST:event_infoDocActionPerformed
 
     private void infoCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoCorreoActionPerformed
         // TODO add your handling code here:
@@ -162,12 +188,13 @@ public class InicioRegistro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JTextField infoCorreo;
+    private javax.swing.JTextField infoDoc;
     private javax.swing.JTextField infoNombre;
-    private javax.swing.JTextField inforContrasena;
+    private javax.swing.JTextField infoTelefono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

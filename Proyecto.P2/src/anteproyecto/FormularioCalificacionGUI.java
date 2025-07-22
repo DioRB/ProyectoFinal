@@ -34,6 +34,64 @@ private String nombreUsuario;
     
         txtUsuario.setText(nombreUsuario); 
         resultado.setEditable(false);
+        
+
+        
+        
+        // Fuentes y colores base
+Font fuenteTitulo = new Font("Segoe UI", Font.BOLD, 20);
+Font fuenteTexto = new Font("Segoe UI", Font.PLAIN, 14);
+
+Color azulOscuro = new Color(44, 62, 80);
+Color grisOscuro = new Color(52, 73, 94);
+Color fondoClaro = new Color(236, 240, 241);
+Color verde = new Color(39, 174, 96);
+Color rojo = new Color(192, 57, 43);
+Color azul = new Color(41, 128, 185);
+
+// Fondo general
+getContentPane().setBackground(fondoClaro);
+
+// Etiquetas
+
+
+    titulo.setFont(fuenteTitulo);
+    titulo.setForeground(new Color(44, 62, 80)); // Azul oscuro suave
+
+
+NombreTitulo.setFont(fuenteTexto);
+NombreTitulo.setForeground(azulOscuro);
+jLabel1.setFont(fuenteTexto);
+jLabel1.setForeground(grisOscuro);
+jLabel2.setFont(fuenteTexto);
+jLabel2.setForeground(grisOscuro);
+jLabel3.setFont(fuenteTexto);
+jLabel3.setForeground(grisOscuro);
+
+// Campos de texto
+txtAlbum.setFont(fuenteTexto);
+txtUsuario.setFont(fuenteTexto);
+txtCalificacion.setFont(fuenteTexto);
+txtComentario.setFont(fuenteTexto);
+
+// Área de resultado
+resultado.setFont(new Font("Monospaced", Font.PLAIN, 13));
+resultado.setBackground(new Color(248, 249, 250)); // gris muy claro
+resultado.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+resultado.setForeground(Color.DARK_GRAY);
+
+// Botones
+btnEnviar.setFont(fuenteTexto);
+btnEnviar.setBackground(verde);
+btnEnviar.setForeground(Color.WHITE);
+btnEnviar.setFocusPainted(false);
+
+btnRegresar.setFont(fuenteTexto);
+btnRegresar.setBackground(rojo);
+btnRegresar.setForeground(Color.WHITE);
+btnRegresar.setFocusPainted(false);
+
+        
         setVisible(true);
     }
 
@@ -59,6 +117,7 @@ private String nombreUsuario;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -69,17 +128,17 @@ private String nombreUsuario;
                 btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 30));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 30));
 
         NombreTitulo.setText("Nombre del álbum:");
-        getContentPane().add(NombreTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
+        getContentPane().add(NombreTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
 
         txtAlbum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlbumActionPerformed(evt);
             }
         });
-        getContentPane().add(txtAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 70, -1));
+        getContentPane().add(txtAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 120, 30));
 
         btnEnviar.setText("Enviar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,25 +146,28 @@ private String nombreUsuario;
                 btnEnviarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 590, -1, -1));
-        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 70, -1));
-        getContentPane().add(txtCalificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 70, -1));
-        getContentPane().add(txtComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 70, -1));
+        getContentPane().add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, -1, -1));
+        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 120, 30));
+        getContentPane().add(txtCalificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 120, 30));
+        getContentPane().add(txtComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 120, 30));
 
         resultado.setColumns(20);
         resultado.setRows(5);
         jScrollPane1.setViewportView(resultado);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, 290, 140));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, 290, 320));
 
-        jLabel1.setText("Tu nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
+        jLabel1.setText("Tu nombre:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, -1, -1));
 
-        jLabel2.setText("Comentario");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, -1));
+        jLabel2.setText("Comentario:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, -1, -1));
 
-        jLabel3.setText("Calificacion");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
+        jLabel3.setText("Calificacion:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
+
+        titulo.setText("Queremos saber tu opinión");
+        getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -127,22 +189,35 @@ private String nombreUsuario;
         String comentario = txtComentario.getText().trim();
 
         if (album.isEmpty() || usuario.isEmpty() || comentario.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.",
+        "Error",
+        JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (calificacion < 1 || calificacion > 10) {
-            JOptionPane.showMessageDialog(this, "La calificación debe estar entre 1 y 10.");
+            JOptionPane.showMessageDialog(this, "La calificación debe estar entre 1 y 10.",
+        "Error",
+        JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        resultado.setText("¡Gracias por tu calificación!\n\n"
-                + "Álbum: " + album + "\n"
+        JOptionPane.showMessageDialog(this,
+        "Calificación guardada exitosamente",
+        "Éxito",
+        JOptionPane.INFORMATION_MESSAGE);
+        resultado.append("Álbum: " + album + "\n"
                 + "Usuario: " + usuario + "\n"
                 + "Calificación: " + calificacion + "/10\n"
-                + "Comentario: " + comentario);
+                + "Comentario: " + comentario + "\n\n"
+                + "----------------------------------\n\n");
+        
+        txtAlbum.setText("");
+        txtCalificacion.setText("");
+        txtComentario.setText("");
     } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Calificación inválida. Ingresa un número entre 1 y 10.");
+        JOptionPane.showMessageDialog(this, "Calificación inválida. Ingresa un número entre 1 y 10.",
+        "Error",
+        JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
@@ -175,6 +250,7 @@ private String nombreUsuario;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea resultado;
+    private javax.swing.JLabel titulo;
     private javax.swing.JTextField txtAlbum;
     private javax.swing.JTextField txtCalificacion;
     private javax.swing.JTextField txtComentario;

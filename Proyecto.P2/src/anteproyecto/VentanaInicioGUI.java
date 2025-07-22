@@ -5,9 +5,11 @@
  */
 package anteproyecto;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.util.Arrays;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+
 /**
  *
  * @author ASUS
@@ -22,11 +24,42 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
     public VentanaInicioGUI(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
         initComponents();
+        setTitle("Inicio");
         setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        jLabel1.setText("Bienvenido, " + nombreUsuario + "!");
+        jLabel1.setText("Bienvenido a Auralia, " + nombreUsuario + "!");
+        
+        
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        jLabel1.setForeground(new Color(51, 51, 51));
+        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel1.setBounds(300, 40, 400, 40);
+
+        jLabel2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        jLabel2.setForeground(new Color(85, 85, 85));
+        jLabel2.setBounds(400, 120, 300, 30);
+
+        
+        comprarBtn.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        comprarBtn.setBackground(new Color(74, 144, 226)); // Azul
+        comprarBtn.setForeground(Color.WHITE);
+        comprarBtn.setFocusPainted(false);
+        comprarBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        comprarBtn.setBounds(250, 400, 150, 50);
+
+        
+        calificarBtn.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        calificarBtn.setBackground(new Color(34, 193, 195)); 
+        calificarBtn.setForeground(Color.WHITE);
+        calificarBtn.setFocusPainted(false);
+        calificarBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        calificarBtn.setBounds(600, 400, 150, 50);
+
+        
+        getContentPane().setBackground(new Color(245, 245, 245));
+
         
         setVisible(true);
     }
@@ -48,27 +81,27 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Bienvenido.");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
+        jLabel1.setText("Bienvenido a Auralia, ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
 
         jLabel2.setText("¿Que deseas hacer?");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, -1, -1));
 
-        comprarBtn.setText("Comprar");
+        comprarBtn.setText("Comprar productos");
         comprarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comprarBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(comprarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
+        getContentPane().add(comprarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, -1, -1));
 
-        calificarBtn.setText("Calificar");
+        calificarBtn.setText("Calificar un album");
         calificarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calificarBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(calificarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 430, -1, -1));
+        getContentPane().add(calificarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -81,13 +114,22 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
 
         Producto vinilo1 = new Producto(1, "Vinilo - OK Computer", 120.0, true, 10);
         Producto vinilo2 = new Producto(2, "Vinilo - To Pimp a Butterfly", 150.0, true, 5);
-        Producto cuadro = new Producto(3, "Cuadro Currents", 60.0, true, 3);
+        Producto vinilo3 = new Producto(3, "Vinilo - To Pimp a Butterfly", 110.0, true, 5);
+        Producto vinilo4 = new Producto(4, "Vinilo - To Pimp a Butterfly", 90.0, true, 5);
+        Producto vinilo5 = new Producto(5, "Vinilo - To Pimp a Butterfly", 152.0, true, 5);
+        Producto cuadro1 = new Producto(6, "Cuadro Currents", 60.0, true, 10);
+        Producto cuadro2 = new Producto(7, "Cuadro The Dark Side of the Moon", 60.0, true, 3);
+        Producto cuadro3 = new Producto(8, "Cuadro AM", 60.0, true, 3);
+        Producto camiseta1 = new Producto(9, "Camiseta Metallica", 60.0, true, 3);
+        Producto camiseta2 = new Producto(10, "Cuadro Radiohead", 60.0, true, 3);
 
         MetodoPago pago1 = new MetodoPago(1, "Tarjeta débito");
         MetodoPago pago2 = new MetodoPago(2, "Tarjeta crédito");
+        MetodoPago pago3 = new MetodoPago(3, "Efectivo");
+        MetodoPago pago4 = new MetodoPago(4, "Transferencia");
             
-        java.util.List<Producto> productos = Arrays.asList(vinilo1, vinilo2, cuadro);
-        java.util.List<MetodoPago> metodos = Arrays.asList(pago1, pago2);
+        java.util.List<Producto> productos = Arrays.asList(vinilo1, vinilo2,vinilo3, vinilo4, vinilo5, cuadro1, cuadro2, cuadro3, camiseta1, camiseta2 );
+        java.util.List<MetodoPago> metodos = Arrays.asList(pago1, pago2, pago3, pago4);
         String nombre = this.nombreUsuario;
         SwingUtilities.invokeLater(() -> new FormularioCompraGUI(cliente, productos, metodos, nombre));
 
