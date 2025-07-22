@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -16,26 +17,23 @@ import java.awt.event.ActionListener;
  */
 public class FormularioCalificacionGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormularioCalificacionGUI
-     */
+private String nombreUsuario;
+
     public FormularioCalificacionGUI() {
+    }
+
+
+    public FormularioCalificacionGUI(String nombre) {
         setTitle("Calificar Álbum");
         initComponents();
         setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-    
-
-        resultado.setEditable(false);
-        JScrollPane scrollResultado = new JScrollPane(resultado);
-
         
-
-        add(scrollResultado);
-
-
-
+        this.nombreUsuario = nombre;
+    
+        txtUsuario.setText(nombreUsuario); 
+        resultado.setEditable(false);
         setVisible(true);
     }
 
@@ -76,13 +74,12 @@ public class FormularioCalificacionGUI extends javax.swing.JFrame {
         NombreTitulo.setText("Nombre del álbum:");
         getContentPane().add(NombreTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
 
-        txtAlbum.setText("jTextField1");
         txtAlbum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlbumActionPerformed(evt);
             }
         });
-        getContentPane().add(txtAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, -1));
+        getContentPane().add(txtAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 70, -1));
 
         btnEnviar.setText("Enviar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,22 +87,16 @@ public class FormularioCalificacionGUI extends javax.swing.JFrame {
                 btnEnviarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 660, -1, -1));
-
-        txtUsuario.setText("jTextField1");
-        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
-
-        txtCalificacion.setText("jTextField1");
-        getContentPane().add(txtCalificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
-
-        txtComentario.setText("jTextField1");
-        getContentPane().add(txtComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, -1, -1));
+        getContentPane().add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 590, -1, -1));
+        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 70, -1));
+        getContentPane().add(txtCalificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 70, -1));
+        getContentPane().add(txtComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 70, -1));
 
         resultado.setColumns(20);
         resultado.setRows(5);
         jScrollPane1.setViewportView(resultado);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 460, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, 290, 140));
 
         jLabel1.setText("Tu nombre");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
@@ -120,8 +111,8 @@ public class FormularioCalificacionGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-            this.dispose();
-    SwingUtilities.invokeLater(() -> new VentanaInicioGUI().setVisible(true));
+    this.dispose();
+    SwingUtilities.invokeLater(() -> new VentanaInicioGUI(nombreUsuario).setVisible(true));
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlbumActionPerformed
@@ -129,32 +120,30 @@ public class FormularioCalificacionGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAlbumActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-                btnEnviar.addActionListener(e -> {
-            try {
-                String album = txtAlbum.getText().trim();
-                String usuario = txtUsuario.getText().trim();
-                int calificacion = Integer.parseInt(txtCalificacion.getText().trim());
-                String comentario = txtComentario.getText().trim();
+    try {
+        String album = txtAlbum.getText().trim();
+        String usuario = txtUsuario.getText().trim();
+        double calificacion = Double.parseDouble(txtCalificacion.getText().trim());
+        String comentario = txtComentario.getText().trim();
 
-                if (album.isEmpty() || usuario.isEmpty() || comentario.isEmpty()) {
-                    resultado.setText("Por favor, completa todos los campos.");
-                    return;
-                }
+        if (album.isEmpty() || usuario.isEmpty() || comentario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+            return;
+        }
 
-                if (calificacion < 1 || calificacion > 5) {
-                    resultado.setText("La calificación debe estar entre 1 y 5.");
-                    return;
-                }
+        if (calificacion < 1 || calificacion > 10) {
+            JOptionPane.showMessageDialog(this, "La calificación debe estar entre 1 y 10.");
+            return;
+        }
 
-                resultado.setText("¡Gracias por tu calificación!\n\n"
-                        + "Álbum: " + album + "\n"
-                        + "Usuario: " + usuario + "\n"
-                        + "Calificación: " + calificacion + "/5\n"
-                        + "Comentario: " + comentario);
-            } catch (NumberFormatException ex) {
-                resultado.setText("Calificación inválida. Ingresa un número entre 1 y 5.");
-            }
-        });
+        resultado.setText("¡Gracias por tu calificación!\n\n"
+                + "Álbum: " + album + "\n"
+                + "Usuario: " + usuario + "\n"
+                + "Calificación: " + calificacion + "/10\n"
+                + "Comentario: " + comentario);
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Calificación inválida. Ingresa un número entre 1 y 10.");
+    }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**

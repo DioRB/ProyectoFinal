@@ -60,7 +60,7 @@ public class Cliente extends Usuario {
     
     for (ItemVenta item : items) {
         if (!item.getProducto().hayStockSuficiente(item.getCantidad())) {
-            throw new IllegalArgumentException("Stock insuficiente para el producto: " + item.getProducto().getDescripcion());
+            throw new IllegalArgumentException("Stock insuficiente para el producto: " + item.getProducto().getDescripcion() + "Quedan " + item.getProducto().getStock() + " unidades disponibles");
         }
     }
 
@@ -78,7 +78,7 @@ public class Cliente extends Usuario {
  
     historialVentas.add(venta);
     
-    carrito.vaciarCarrito();
+    carrito.vaciar();
 
     return venta;
 }

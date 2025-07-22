@@ -9,16 +9,36 @@ public class Venta {
     private MetodoPago metodoPago;
     private List<ItemVenta> items;
     private Cliente cliente;
+    private double total;
 
     public Venta() {
     }
 
-    public Venta(int id, LocalDate fecha, MetodoPago metodoPago, List<ItemVenta> items, Cliente cliente) {
-        this.id = id;
-        this.fecha = fecha;
-        this.metodoPago = metodoPago;
-        this.items = items;
+
+public Venta(int id, LocalDate fecha, MetodoPago metodoPago, List<ItemVenta> items, Cliente cliente) {
+    this.id = id;
+    this.fecha = fecha;
+    this.metodoPago = metodoPago;
+    this.items = items;
+    this.cliente = cliente;
+    this.total = calcularTotal();
+}
+
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public int getId() {

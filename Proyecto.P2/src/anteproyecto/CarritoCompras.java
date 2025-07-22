@@ -34,7 +34,7 @@ public class CarritoCompras {
         return total;
     }
 
-    public void vaciarCarrito() {
+    public void vaciar() {
         items.clear();
     }
 

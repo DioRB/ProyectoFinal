@@ -19,14 +19,14 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
     }
     
     
-    public VentanaInicioGUI(String nombre) {
-        this.nombreUsuario = nombre;
+    public VentanaInicioGUI(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
         initComponents();
         setSize(1000, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        jLabel1.setText("Bienvenido, " + nombre + "!");
+        jLabel1.setText("Bienvenido, " + nombreUsuario + "!");
         
         setVisible(true);
     }
@@ -95,9 +95,8 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_comprarBtnActionPerformed
 
     private void calificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calificarBtnActionPerformed
-            dispose(); // Cierra la ventana de inicio
-            SwingUtilities.invokeLater(() -> new FormularioCalificacionGUI().setVisible(true));
-        
+    new FormularioCalificacionGUI(nombreUsuario);
+    this.dispose();
     }//GEN-LAST:event_calificarBtnActionPerformed
 
     /**

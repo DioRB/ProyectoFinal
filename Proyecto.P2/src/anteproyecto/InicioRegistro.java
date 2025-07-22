@@ -3,16 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package anteproyecto;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author estudiante
  */
 public class InicioRegistro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InicioRegistro
-     */
+
     public InicioRegistro() {
         initComponents();
         setSize(1000, 700);
@@ -69,7 +67,19 @@ public class InicioRegistro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 103, 40));
+
+        inforContrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inforContrasenaActionPerformed(evt);
+            }
+        });
         getContentPane().add(inforContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 100, 40));
+
+        infoCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoCorreoActionPerformed(evt);
+            }
+        });
         getContentPane().add(infoCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 100, 40));
 
         btnSiguiente.setText("Siguiente");
@@ -92,10 +102,27 @@ public class InicioRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-    String nombre = infoNombre.getText();
-    new VentanaInicioGUI(nombre); 
+    String nombre = infoNombre.getText().trim();
+    String correo = infoCorreo.getText().trim();
+    String contrasena = inforContrasena.getText().trim();
+
+    if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+        return;
+    }
+
+    // Aquí podrías construir un objeto Cliente y pasarlo si lo deseas.
+    new VentanaInicioGUI(nombre);
     this.dispose(); // Cierra esta ventana
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void inforContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inforContrasenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inforContrasenaActionPerformed
+
+    private void infoCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_infoCorreoActionPerformed
 
     /**
      * @param args the command line arguments

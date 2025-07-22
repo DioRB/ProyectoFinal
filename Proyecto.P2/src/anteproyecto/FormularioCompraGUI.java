@@ -50,28 +50,24 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
         }
 
     
-    // Limpia los ítems del combo generado por NetBeans
-    comboProductos.removeAllItems();
-    for (Producto p : productosDisponibles) {
-        comboProductos.addItem(p); // Esto mostrará toString() de Producto
-    }
 
-    // Limpia y carga productos
     comboProductos.removeAllItems();
     for (Producto p : productosDisponibles) {
         comboProductos.addItem(p);
     }
 
-    // Limpia y carga métodos de pago
+  
+    comboProductos.removeAllItems();
+    for (Producto p : productosDisponibles) {
+        comboProductos.addItem(p);
+    }
+
+
     comboMetodoPago.removeAllItems();
     for (MetodoPago m : metodosPago) {
         comboMetodoPago.addItem(m);
     }
 
-    
-    // Agregar listeners y lógica como ya lo hiciste
-
-    resultado.setEditable(false);   
     
    
 
@@ -85,41 +81,69 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
 
 }
     
-        private void agregarProductoAlCarrito() {
-        try {
-            Producto producto = (Producto) comboProductos.getSelectedItem();
-            int cantidad = Integer.parseInt(txtCantidad.getText());
+private void agregarProductoAlCarrito() {
+    try {
+        Producto producto = (Producto) comboProductos.getSelectedItem();
+        int cantidad = Integer.parseInt(txtCantidad.getText());
 
-            if (!producto.hayStockSuficiente(cantidad)) {
-                mostrarMensaje("Stock insuficiente para el producto seleccionado.");
-                return;
-            }
-
-            cliente.getCarrito().agregarProducto(producto, cantidad);
-            mostrarMensaje("Producto agregado al carrito.");
-
-        } catch (NumberFormatException ex) {
-            mostrarMensaje("Cantidad inválida.");
+        if (!producto.hayStockSuficiente(cantidad)) {
+            JOptionPane.showMessageDialog(this, "Stock insuficiente para el carrito. Hay " + producto.getStock() + " restantes.");
+            return;
         }
+
+        cliente.getCarrito().agregarProducto(producto, cantidad);
+        JOptionPane.showMessageDialog(this, "Producto agregado al carrito");
+
+        actualizarResumenCarrito(); 
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Cantidad inválida");
     }
+}
+
+
+private void actualizarResumenCarrito() {
+    StringBuilder resumenTexto = new StringBuilder("Resumen del carrito:\n");
+
+    double total = 0;
+
+    for (ItemVenta item : cliente.getCarrito().getItems()) {
+        Producto producto = item.getProducto();
+        int cantidad = item.getCantidad();
+        double subtotal = item.getSubtotal();
+
+        resumenTexto.append(producto.getDescripcion())
+                    .append(" | Cantidad: ").append(cantidad)
+                    .append(" | Subtotal: $").append(String.format("%.2f", subtotal))
+                    .append("\n");
+
+        total += subtotal;
+    }
+
+    resumenTexto.append("\nTOTAL: $").append(String.format("%.2f", total));
+
+    resumen.setText(resumenTexto.toString());
+}
+
+
         
-        private void realizarCompra() {
-           MetodoPago metodo = (MetodoPago) comboMetodoPago.getSelectedItem();
+    private void realizarCompra() {
+        MetodoPago metodo = (MetodoPago) comboMetodoPago.getSelectedItem();
         try {
             Venta venta = cliente.realizarVenta(metodo);
-            mostrarMensaje("¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal());
+            JOptionPane.showMessageDialog(this,"¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal());
 
+            vaciarCarrito(); // <- aquí se vacía el carrito después de comprar
         } catch (Exception ex) {
-            mostrarMensaje("Error al realizar la compra: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this,"Error al realizar la compra: " + ex.getMessage());
         }
     }
 
-    private void mostrarMensaje(String mensaje) {
-        resultado.setText(mensaje);
+    private void vaciarCarrito() {
+        cliente.getCarrito().vaciar(); 
+        actualizarResumenCarrito();    
+        JOptionPane.showMessageDialog(this, "Carrito vaciado con éxito.");
     }
-    
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,7 +163,8 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
         btnAgregarAlCarrito = new javax.swing.JButton();
         btnComprar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        resultado = new javax.swing.JTextArea();
+        resumen = new javax.swing.JTextArea();
+        vaciarCarro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -187,13 +212,21 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
 
         btnComprar.setFont(new java.awt.Font("Artifakt Element Book", 1, 12)); // NOI18N
         btnComprar.setText("Comprar");
-        getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 570, -1, -1));
+        getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 520, -1, -1));
 
-        resultado.setColumns(20);
-        resultado.setRows(5);
-        jScrollPane1.setViewportView(resultado);
+        resumen.setColumns(20);
+        resumen.setRows(5);
+        jScrollPane1.setViewportView(resumen);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 410, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
+
+        vaciarCarro.setText("Vaciar carrito");
+        vaciarCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaciarCarroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(vaciarCarro, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 330, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -214,6 +247,10 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
     private void btnAgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlCarritoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarAlCarritoActionPerformed
+
+    private void vaciarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarroActionPerformed
+        vaciarCarrito();
+    }//GEN-LAST:event_vaciarCarroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,7 +296,8 @@ public FormularioCompraGUI(Cliente cliente, List<Producto> productos, List<Metod
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton regresarBtn;
-    private javax.swing.JTextArea resultado;
+    private javax.swing.JTextArea resumen;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JButton vaciarCarro;
     // End of variables declaration//GEN-END:variables
 }
