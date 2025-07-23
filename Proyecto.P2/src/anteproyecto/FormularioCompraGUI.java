@@ -86,7 +86,7 @@ getContentPane().setBackground(new Color(236, 240, 241)); // Gris claro
 
     comboProductos.removeAllItems();
     for (Producto p : productosDisponibles) {
-        comboProductos.addItem(p); // toString() se invoca automáticamente
+        comboProductos.addItem(p);
     }
 
 
@@ -94,15 +94,8 @@ getContentPane().setBackground(new Color(236, 240, 241)); // Gris claro
 
     comboMetodoPago.removeAllItems();
     for (MetodoPago m : metodosPago) {
-        comboMetodoPago.addItem(m); // se mostrará m.toString() => tipo
+        comboMetodoPago.addItem(m);
 }
-
-    
-
-
-
-    
-   
 
     btnAgregarAlCarrito.addActionListener(e -> agregarProductoAlCarrito());
     btnComprar.addActionListener(e -> realizarCompra());
@@ -131,9 +124,9 @@ private void agregarProductoAlCarrito() {
 
             if (producto.hayStockSuficiente(cantidad)) {
         ItemVenta item = new ItemVenta(producto, cantidad);
-        cliente.getCarrito().agregarProducto(producto, cantidad); // carrito es una List<ItemVenta>
+        cliente.getCarrito().agregarProducto(producto, cantidad);
 
-        // Actualizar visualmente el carrito
+
         actualizarResumenCarrito();
     } else {
         JOptionPane.showMessageDialog(this, "Stock insuficiente.");

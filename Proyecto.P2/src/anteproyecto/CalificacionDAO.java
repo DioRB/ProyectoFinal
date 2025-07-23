@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-// En CalificacionDAO.java
+
 public class CalificacionDAO {
 
     public void insertarCalificacion(String album, String usuario, double calificacion, String comentario) throws SQLException {
