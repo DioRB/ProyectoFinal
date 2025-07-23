@@ -11,8 +11,8 @@ public class Cliente extends Usuario {
         this.carrito = new CarritoCompras();
     }
 
-    public Cliente(int id, String nombre, String correo, String contraseña, String telefono, Rol rol) {
-        super(id, nombre, correo, contraseña, telefono, rol);
+    public Cliente(int id, String nombre, String correo, String contraseña, String telefono) {
+        super(id, nombre, correo, contraseña, telefono);
         this.carrito = new CarritoCompras();
 }
 

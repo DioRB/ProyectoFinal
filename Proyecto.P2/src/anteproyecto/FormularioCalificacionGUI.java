@@ -6,10 +6,10 @@
 package anteproyecto;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -190,35 +190,41 @@ btnRegresar.setFocusPainted(false);
 
         if (album.isEmpty() || usuario.isEmpty() || comentario.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.",
-        "Error",
-        JOptionPane.WARNING_MESSAGE);
+                "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (calificacion < 1 || calificacion > 10) {
             JOptionPane.showMessageDialog(this, "La calificación debe estar entre 1 y 10.",
-        "Error",
-        JOptionPane.WARNING_MESSAGE);
+                "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(this,
-        "Calificación guardada exitosamente",
-        "Éxito",
-        JOptionPane.INFORMATION_MESSAGE);
+
+        // ✅ Corregido: usar una instancia de CalificacionDAO
+        new CalificacionDAO().insertarCalificacion(album, usuario, calificacion, comentario);
+
         resultado.append("Álbum: " + album + "\n"
-                + "Usuario: " + usuario + "\n"
-                + "Calificación: " + calificacion + "/10\n"
-                + "Comentario: " + comentario + "\n\n"
-                + "----------------------------------\n\n");
-        
+            + "Usuario: " + usuario + "\n"
+            + "Calificación: " + calificacion + "/10\n"
+            + "Comentario: " + comentario + "\n"
+            + "----------------------------------\n\n");
+
+        JOptionPane.showMessageDialog(this, "Calificación guardada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
         txtAlbum.setText("");
+        txtUsuario.setText("");
         txtCalificacion.setText("");
         txtComentario.setText("");
+
     } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(this, "Calificación inválida. Ingresa un número entre 1 y 10.",
-        "Error",
-        JOptionPane.WARNING_MESSAGE);
+            "Error", JOptionPane.WARNING_MESSAGE);
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error al guardar en la base de datos:\n" + ex.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
     }
+
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
@@ -234,7 +240,7 @@ btnRegresar.setFocusPainted(false);
                 }
             }
         } catch (Exception ex) {
-            // Si falla, se ignora
+
         }
 
         // Lanzar la GUI

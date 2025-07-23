@@ -82,34 +82,24 @@ getContentPane().setBackground(new Color(236, 240, 241)); // Gris claro
     this.productosDisponibles = productos;
     this.metodosPago = metodos;
     
-    comboProductos.setModel(new DefaultComboBoxModel<Producto>());
-        for (Producto p : productos) {
-            ((DefaultComboBoxModel<Producto>) comboProductos.getModel()).addElement(p);
-        }
-
-    DefaultComboBoxModel<MetodoPago> modeloMetodo = new DefaultComboBoxModel<>();
-        for (MetodoPago m : metodosPago) {
-            modeloMetodo.addElement(m);
-        }
-
-    
+    this.productosDisponibles = ProductoDAO.obtenerTodos();
 
     comboProductos.removeAllItems();
     for (Producto p : productosDisponibles) {
-        comboProductos.addItem(p);
+        comboProductos.addItem(p); // toString() se invoca automáticamente
     }
 
-  
-    comboProductos.removeAllItems();
-    for (Producto p : productosDisponibles) {
-        comboProductos.addItem(p);
-    }
 
+    this.metodosPago = MetodoPagoDAO.obtenerTodos();
 
     comboMetodoPago.removeAllItems();
     for (MetodoPago m : metodosPago) {
-        comboMetodoPago.addItem(m);
-    }
+        comboMetodoPago.addItem(m); // se mostrará m.toString() => tipo
+}
+
+    
+
+
 
     
    
@@ -119,6 +109,7 @@ getContentPane().setBackground(new Color(236, 240, 241)); // Gris claro
 
     setSize(1000, 700);
     setLocationRelativeTo(null);
+    actualizarResumenCarrito(); 
     setVisible(true);
 
 
@@ -138,7 +129,16 @@ private void agregarProductoAlCarrito() {
             return;
         }
 
-        cliente.getCarrito().agregarProducto(producto, cantidad);
+            if (producto.hayStockSuficiente(cantidad)) {
+        ItemVenta item = new ItemVenta(producto, cantidad);
+        cliente.getCarrito().agregarProducto(producto, cantidad); // carrito es una List<ItemVenta>
+
+        // Actualizar visualmente el carrito
+        actualizarResumenCarrito();
+    } else {
+        JOptionPane.showMessageDialog(this, "Stock insuficiente.");
+    }   
+
         JOptionPane.showMessageDialog(this,
         "Producto agregado exitosamente al carrito.",
         "Éxito",
@@ -179,21 +179,33 @@ private void actualizarResumenCarrito() {
 
 
         
-    private void realizarCompra() {
-        MetodoPago metodo = (MetodoPago) comboMetodoPago.getSelectedItem();
-        try {
-            Venta venta = cliente.realizarVenta(metodo);
-            JOptionPane.showMessageDialog(this,"¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+private void realizarCompra() {
+    MetodoPago metodo = (MetodoPago) comboMetodoPago.getSelectedItem();
+    try {
+        Venta venta = cliente.realizarVenta(metodo);
+        
+        int idVenta = VentaDAO.guardarVenta(venta);
+        
+        for (ItemVenta item : venta.getItems()) {
+            VentaDAO.guardarItemVenta(item, idVenta);
+        }
+        
+        
+        JOptionPane.showMessageDialog(this,
+            "¡Compra realizada con éxito!\nTotal: $" + venta.calcularTotal(),
+            "Éxito",
+            JOptionPane.INFORMATION_MESSAGE);
 
-            vaciarCarrito(); // <- aquí se vacía el carrito después de comprar
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,
+        vaciarCarrito();
+        
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this,
             "Ocurrió un error durante la compra:\n" + ex.getMessage(),
             "Error de compra",
             JOptionPane.ERROR_MESSAGE);
-
-        }
     }
+}
+
 
     private void vaciarCarrito() {
         cliente.getCarrito().vaciar(); 
@@ -272,6 +284,11 @@ private void actualizarResumenCarrito() {
 
         btnComprar.setFont(new java.awt.Font("Artifakt Element Book", 1, 12)); // NOI18N
         btnComprar.setText("Comprar");
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 520, -1, -1));
 
         resumen.setColumns(20);
@@ -311,6 +328,10 @@ private void actualizarResumenCarrito() {
     private void vaciarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarCarroActionPerformed
         vaciarCarrito();
     }//GEN-LAST:event_vaciarCarroActionPerformed
+
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnComprarActionPerformed
 
     /**
      * @param args the command line arguments

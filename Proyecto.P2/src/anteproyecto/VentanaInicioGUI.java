@@ -109,8 +109,7 @@ public class VentanaInicioGUI extends javax.swing.JFrame {
     private void comprarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarBtnActionPerformed
              
         dispose(); // Cierra la ventana de inicio
-        Rol rolCliente = new Rol(2, "Cliente", true);
-        Cliente cliente = new Cliente(1, "Diego", "correo@correo", "contrasena", "123410", rolCliente);
+        Cliente cliente = new Cliente(1, "Diego", "correo@correo", "contrasena", "123410");
 
         Producto vinilo1 = new Producto(1, "Vinilo - OK Computer", 120.0, true, 10);
         Producto vinilo2 = new Producto(2, "Vinilo - To Pimp a Butterfly", 150.0, true, 5);

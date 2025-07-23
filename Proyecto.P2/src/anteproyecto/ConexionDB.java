@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 
 public class ConexionDB {
-    private static final String RUTA = "C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/ProyectoFinal.accdb";
+    private static final String RUTA = "db/Auralia.accdb";
     private static final String URL = "jdbc:ucanaccess://" + RUTA;
 
     public static Connection obtenerConexion() throws SQLException {

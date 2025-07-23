@@ -7,6 +7,9 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 /**
  *
  * @author estudiante
@@ -132,10 +135,41 @@ public class InicioRegistro extends javax.swing.JFrame {
     String doc = infoDoc.getText().trim();
     String tel = infoTelefono.getText().trim();
 
-    if (nombre.isEmpty() || correo.isEmpty() || doc.isEmpty() || tel.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+    
+try {
+
+    if (nombre.isEmpty() || doc.isEmpty() || tel.isEmpty() || correo.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.",
+            "Campos vacíos", JOptionPane.WARNING_MESSAGE);
         return;
     }
+
+    UsuarioDAO dao = new UsuarioDAO();
+
+    if (dao.existeUsuarioPorDocumento(doc)) {
+        JOptionPane.showMessageDialog(this,
+            "El usuario ya está registrado. Se adjuntará la información a ese usuario.",
+            "Usuario existente", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        dao.insertarUsuario(nombre, doc, tel, correo);
+        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente",
+            "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // Limpiar campos
+    infoNombre.setText("");
+    infoCorreo.setText("");
+    infoDoc.setText("");
+    infoTelefono.setText("");
+
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(this, "Error al guardar el usuario: " + ex.getMessage(),
+        "Error de base de datos", JOptionPane.ERROR_MESSAGE);
+    ex.printStackTrace();
+}
+
+
+
 
     // Aquí podrías construir un objeto Cliente y pasarlo si lo deseas.
     new VentanaInicioGUI(nombre);

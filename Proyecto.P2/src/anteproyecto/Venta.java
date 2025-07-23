@@ -21,7 +21,6 @@ public Venta(int id, LocalDate fecha, MetodoPago metodoPago, List<ItemVenta> ite
     this.metodoPago = metodoPago;
     this.items = items;
     this.cliente = cliente;
-    this.total = calcularTotal();
 }
 
 
@@ -69,9 +68,11 @@ public Venta(int id, LocalDate fecha, MetodoPago metodoPago, List<ItemVenta> ite
         return items;
     }
 
-    public void setItems(List<ItemVenta> items) {
-        this.items = items;
+    public void agregarItem(ItemVenta item) {
+        this.items.add(item);
+        this.total = calcularTotal(); 
     }
+
 
     public double calcularTotal() {
         return items.stream()

@@ -2,16 +2,14 @@ package anteproyecto;
 
 public class Puntuacion {
     int id;
-    Cancion cancion;
     Usuario usuario;
     String descripcion;
     int instrumental;
     int letra;
     int impacto;
 
-    public Puntuacion(int id, Cancion cancion, Usuario usuario, String descripcion, int instrumental, int letra, int impacto) {
+    public Puntuacion(int id, Usuario usuario, String descripcion, int instrumental, int letra, int impacto) {
         this.id = id;
-        this.cancion = cancion;
         this.usuario = usuario;
         this.descripcion = descripcion;
         this.instrumental = instrumental;
@@ -25,14 +23,6 @@ public class Puntuacion {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Cancion getCancion() {
-        return cancion;
-    }
-
-    public void setCancion(Cancion cancion) {
-        this.cancion = cancion;
     }
 
     public Usuario getUsuario() {

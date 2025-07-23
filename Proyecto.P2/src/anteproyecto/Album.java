@@ -10,7 +10,6 @@ public class Album {
     String descripcion;
     Artista artista;
     List<Genero> generos;
-    List<Cancion> canciones;
 
     public Album(int id, String titulo, LocalDate fechaLanzamiento, String descripcion, Artista artista) {
         this.id = id;
@@ -19,7 +18,6 @@ public class Album {
         this.descripcion = descripcion;
         this.artista = artista;
         this.generos = new ArrayList<>();
-        this.canciones = new ArrayList<>();
     }
 
     public int getId() {
@@ -69,7 +67,7 @@ public class Album {
     public void setGeneros(List<Genero> generos) {
         this.generos = generos;
     }
-
+/*
     public List<Cancion> getCanciones() {
         return canciones;
     }
@@ -97,5 +95,5 @@ public class Album {
     
     public void eliminarCancion(Cancion cancion){
         canciones.remove(cancion);  
-    }
+    }*/
 }

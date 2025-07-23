@@ -2,6 +2,25 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/ProductoDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/CarritoCompras.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Usuario.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/FormularioCompraGUI.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/CalificacionDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/VentanaInicioGUI.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Anteproyecto.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Album.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/InicioRegistro.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Puntuacion.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/MetodoPago.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/VentaDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Venta.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Cliente.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Administrador.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/ConexionDB.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/MetodoPagoDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/Programacion/JAVA/POO/Proyecto.P2/src/anteproyecto/Artista.java</file>
+        </group>
     </open-files>
 </project-private>
